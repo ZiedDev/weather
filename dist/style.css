@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Mona Sans";
-  src: url("./fonts/Mona Sans/Mona-Sans.woff2");
+  src: url("./media/Mona-Sans.woff2");
 }
 
 html,
@@ -38,7 +38,7 @@ button {
   cursor: pointer;
   padding: 1rem;
   margin: 0.5rem;
-  transition: background-color 100ms ease;
+  /* transition: background-color 100ms ease; */
 }
 
 button:hover {
@@ -71,12 +71,33 @@ button:active {
   right: 1rem;
 }
 
+
+.edit-menu-backdrop {
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  cursor: default;
+}
+
+.edit-menu-opened .edit-menu-backdrop {
+  display: block;
+}
+
 .edit-button {
   margin: 0;
   padding: 0;
   background-color: transparent !important;
   z-index: 10;
   position: relative;
+  transition: transform 100ms ease;
+}
+
+.edit-button:hover {
+  transform: scale(1.075);
 }
 
 .edit-context-menu-closed {
@@ -214,6 +235,8 @@ button:active {
   justify-content: start;
   align-items: start;
   padding-bottom: 1rem;
+  padding-right: 1rem;
+  gap: 1rem;
   max-height: 100%;
 }
 
@@ -230,16 +253,27 @@ button:active {
 }
 
 .home-city-button {
+  margin: 0;
   padding: 1rem;
   display: grid;
   min-width: 22rem;
-  height: max-content;
+  width: auto;
+  height: -moz-fill-available;
+  height: -webkit-fill-available;
   grid-template-areas:
     "a c"
     "b c"
     "d c"
     "e f";
-  transition: transform 200ms ease;
+}
+
+.draggable-mirror {
+  height: fit-content;
+  max-width: 30rem;
+}
+
+.draggable-source--is-dragging {
+  opacity: 0;
 }
 
 .home-city-button * {

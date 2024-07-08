@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather</title>
     <link rel="stylesheet" href="style.css">
-    <script src="./apikey.js"></script>
-    <script src="./script.js" defer></script>
+    <script src="./bundle.js" defer></script>
 </head>
 
 <body>
@@ -49,6 +48,7 @@
                     </button>
                 </div>
             </div>
+            <div id="edit-menu-backdrop" class="edit-menu-backdrop"></div>
         </div>
         <div class="search" id="search">
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
@@ -66,7 +66,7 @@
         <div id="search-options" class="search-options"></div>
         <div id="added-cities" class="added-cities"></div>
     </section>
-    <section id="weather-section" class="weather-section hidden">
+    <section id="weather-section" class="weather-section">
         <div id="location" class="location">Alex</div>
         <div id="time" class="time">12:00 AM</div>
         <div id="result" class="result">29.0°C</div>

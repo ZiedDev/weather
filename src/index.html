@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./bundle.js" defer></script>
+</head>
+
+<body>
+    <section id="home-section" class="home-section">
+        <h1 class="home-title">Weather</h1>
+        <div id="edit-menu" class="edit-menu">
+            <button id="edit-button" class="edit-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                    <path fill="#ffffff"
+                        d="m127.52,0C57.06,0,0,57.06,0,127.52s57.06,127.52,127.52,127.52,127.52-57.06,127.52-127.52C254.96,57.15,197.9,0,127.52,0m0,226.72c-54.79,0-99.2-44.4-99.2-99.2S72.74,28.34,127.52,28.34s99.2,44.4,99.2,99.2-44.4,99.1-99.2,99.2m-37.79-99.2c0,10.39-8.51,18.89-18.89,18.89s-18.89-8.51-18.89-18.89,8.51-18.89,18.89-18.89,18.89,8.51,18.89,18.89m113.35,0c0,10.39-8.51,18.89-18.89,18.89s-18.89-8.51-18.89-18.89,8.51-18.89,18.89-18.89,18.89,8.51,18.89,18.89m-56.68,0c0,10.39-8.51,18.89-18.89,18.89s-18.89-8.51-18.89-18.89,8.51-18.89,18.89-18.89,18.89,8.51,18.89,18.89" />
+                </svg>
+            </button>
+            <div id="edit-context-menu" class="edit-context-menu edit-context-menu-closed">
+                <div>
+                    <button id="edit-context-menu-edit-list" name="edit-context-menu-edit-list"
+                        class="edit-context-menu-edit-list">
+                        <h3>Edit list</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                            <path fill="currentColor"
+                                d="m230.15 70.54l-44.69-44.68a20 20 0 0 0-28.28 0L33.86 149.17A19.86 19.86 0 0 0 28 163.31V208a20 20 0 0 0 20 20h168a12 12 0 0 0 0-24h-91L230.15 98.83a20 20 0 0 0 0-28.29M91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z" />
+                        </svg>
+                    </button>
+                    <button id="edit-context-menu-celsius" name="edit-context-menu-celsius"
+                        class="edit-context-menu-celsius edit-context-menu-temp-active">
+                        <h3>Celsius</h3>
+                        <p>°C</p>
+                    </button>
+                    <button id="edit-context-menu-fahrenheit" name="edit-context-menu-fahrenheit"
+                        class="edit-context-menu-fahrenheit">
+                        <h3>Fahrenheit</h3>
+                        <p>°F</p>
+                    </button>
+                    <button id="edit-context-menu-units" name="edit-context-menu-units" class="edit-context-menu-units">
+                        <h3>Units</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                            <path fill="currentColor"
+                                d="M224 196h-4V40a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v36H96a12 12 0 0 0-12 12v36H48a12 12 0 0 0-12 12v60h-4a12 12 0 0 0 0 24h192a12 12 0 0 0 0-24M164 52h32v144h-32Zm-56 48h32v96h-32Zm-48 48h24v48H60Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="edit-menu-backdrop" class="edit-menu-backdrop"></div>
+        </div>
+        <div class="search" id="search">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                <path fill="#98989e"
+                    d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68" />
+            </svg>
+            <input type="text" id="search-box" class="search-box" placeholder="Search for a city" required="true">
+            <button id="close-search-icon" class="close-search-icon" focusable="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                    <path fill="#ffffff"
+                        d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m37.66 130.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32L139.31 128Z" />
+                </svg>
+            </button>
+        </div>
+        <div id="search-options" class="search-options"></div>
+        <div id="added-cities" class="added-cities"></div>
+    </section>
+    <section id="weather-section" class="weather-section">
+        <div id="location" class="location">Alex</div>
+        <div id="time" class="time">12:00 AM</div>
+        <div id="result" class="result">29.0°C</div>
+    </section>
+</body>
+
+</html>

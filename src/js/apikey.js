@@ -1,0 +1,2 @@
+const WEATHER_API = "628fa756fb6a40f5948225627241506";
+export default WEATHER_API;
