@@ -29,6 +29,8 @@ module.exports = {
                 { from: "./src/index.html", to: "./" },
                 { from: "./src/css/style.css", to: "./" },
                 { from: "./src/media/fonts/Mona Sans/Mona-Sans.woff2", to: "./media" },
+                { from: "./src/media/images/icons", to: "./media/icons" },
+
             ],
         })
     ]

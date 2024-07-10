@@ -13,9 +13,13 @@ body {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background: radial-gradient(ellipse at top left, #502daf, rgba(0, 0, 0, 0.125)),
-    radial-gradient(ellipse at bottom right, #4c087a, rgba(0, 0, 0, 0.125));
+  background: radial-gradient(ellipse at top left, hsl(256, 59%, 75%), rgba(0, 0, 0, 0.125)),
+    radial-gradient(ellipse at bottom right, hsl(276, 88%, 50%), rgba(0, 0, 0, 0.125));
+  background-color: black;
+  overflow: hidden;
 }
+
+
 
 body * {
   font-family: "Mona Sans", system-ui, -apple-system, BlinkMacSystemFont,
@@ -91,7 +95,7 @@ button:active {
   margin: 0;
   padding: 0;
   background-color: transparent !important;
-  z-index: 10;
+  z-index: 11;
   position: relative;
   transition: transform 100ms ease;
 }
@@ -234,14 +238,13 @@ button:active {
   position: relative;
   justify-content: start;
   align-items: start;
-  padding-bottom: 1rem;
-  padding-right: 1rem;
+  padding: 0.25rem 0.25rem 1rem 0.25rem;
   gap: 1rem;
   max-height: 100%;
 }
 
 .added-cities::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.75rem;
   background-color: transparent;
 }
 
@@ -258,8 +261,7 @@ button:active {
   display: grid;
   min-width: 22rem;
   width: auto;
-  height: -moz-fill-available;
-  height: -webkit-fill-available;
+  align-self: stretch;
   grid-template-areas:
     "a c"
     "b c"
@@ -268,7 +270,7 @@ button:active {
 }
 
 .draggable-mirror {
-  height: fit-content;
+  max-height: fit-content;
   max-width: 30rem;
 }
 
@@ -286,9 +288,15 @@ button:active {
 
 .home-city-name {
   grid-area: a;
+  width: 100%;
   margin: 0;
   font-size: clamp(1rem, -1.5rem + 8vw, 1.5rem);
   justify-self: start;
+  text-align: left;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .home-city-time {
@@ -303,6 +311,7 @@ button:active {
   grid-area: e;
   margin-top: 1rem;
   font-size: clamp(0.75rem, -1.5rem + 8vw, 1.25rem);
+  text-align: left;
   justify-self: start;
   font-weight: normal;
   align-self: end;
@@ -335,6 +344,32 @@ button:active {
   font-weight: normal;
 }
 
+.trash-can {
+  position: fixed;
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem;
+  bottom: -7rem;
+  left: 50%;
+
+  transform: translate(-50%, 0);
+
+  transition: bottom 150ms ease;
+}
+
+.trash-can-reveal {
+  bottom: 0rem;
+}
+
+.trash-can-lid {
+  transition: transform 100ms ease;
+}
+
+.trash-can-lid-open {
+  transform: rotate(18deg) translateX(0.2rem) translateY(-0.7rem);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -360,7 +395,6 @@ button:active {
 }
 
 @media screen and (max-width: 392px) {
-
   .added-cities {
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
@@ -383,21 +417,35 @@ button:active {
 }
 
 .weather-section {
-  z-index: 10;
+  z-index: 20;
   position: fixed;
-  top: 0;
+  top: 100%;
 
   width: 100vw;
   width: 100svw;
   height: 100vh;
   height: 100svh;
 
+  border-radius: 2rem 2rem 0 0;
+
   background-color: rgb(45, 46, 52, 0.5);
   box-shadow: inset 0px 0px 10px rgba(52, 52, 56, 0.25), 0px 15px 15px rgba(52, 52, 56, 0.25);
-  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  mask-image: rgba(0, 0, 0, 0.5);
+  -webkit-mask-image: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: top 150ms ease;
+}
+
+.weather-section-opened {
+  top: 0;
+}
+
+.weather-section-toggle {
+  position: absolute;
+  top: 1rem;
 }
