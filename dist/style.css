@@ -208,8 +208,12 @@ button:active {
   display: block;
 }
 
-.search-options:has(button:focus) {
-  display: none !important;
+.search-options:focus-within:has(button:active) {
+  display: block !important;
+}
+
+.search-options:focus-within:has(>button:focus) {
+  display: none;
 }
 
 .search-options>button:hover {
