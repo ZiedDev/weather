@@ -23,14 +23,6 @@
             </button>
             <div id="edit-context-menu" class="edit-context-menu edit-context-menu-closed">
                 <div>
-                    <button id="edit-context-menu-edit-list" name="edit-context-menu-edit-list"
-                        class="edit-context-menu-edit-list">
-                        <h3>Edit list</h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-                            <path fill="currentColor"
-                                d="m230.15 70.54l-44.69-44.68a20 20 0 0 0-28.28 0L33.86 149.17A19.86 19.86 0 0 0 28 163.31V208a20 20 0 0 0 20 20h168a12 12 0 0 0 0-24h-91L230.15 98.83a20 20 0 0 0 0-28.29M91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z" />
-                        </svg>
-                    </button>
                     <button id="edit-context-menu-celsius" name="edit-context-menu-celsius"
                         class="edit-context-menu-celsius edit-context-menu-temp-active">
                         <h3>Celsius</h3>
@@ -57,31 +49,31 @@
                 <path fill="#98989e"
                     d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68" />
             </svg>
-            <input type="text" id="search-box" class="search-box" placeholder="Search for a city" required="true">
+            <input type="text" id="search-box" class="search-box" name="search-box" placeholder="Search for a city"
+                required>
             <button id="close-search-icon" class="close-search-icon" focusable="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                     <path fill="#ffffff"
                         d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m37.66 130.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32L139.31 128Z" />
                 </svg>
             </button>
+            <div for="search-box" id="search-options" class="search-options"></div>
         </div>
-        <div id="search-options" class="search-options"></div>
         <div id="added-cities" class="added-cities"></div>
-        <svg id="trash-can" class="trash-can" data-is-trash='true' xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 32 32">
-            <g data-is-trash>
-                <path fill="currentColor" data-is-trash='true'
+        <svg id="trash-can" class="trash-can" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+            <g>
+                <path fill="currentColor"
                     d="m13.89,21.9c.6,0,1.09-.49,1.09-1.09v-5.82c0-.6-.49-1.09-1.09-1.09s-1.09.49-1.09,1.09v5.82c0,.6.49,1.09,1.09,1.09Z" />
-                <path fill="currentColor" data-is-trash='true'
+                <path fill="currentColor"
                     d="m18.25,21.9c.6,0,1.09-.49,1.09-1.09v-5.82c0-.6-.49-1.09-1.09-1.09s-1.09.49-1.09,1.09v5.82c0,.6.49,1.09,1.09,1.09Z" />
-                <path fill="currentColor" data-is-trash='true'
+                <path fill="currentColor"
                     d="m22.62,9.9c-.6,0-1.09.49-1.09,1.09v13.09h-10.91v-13.09c0-.6-.49-1.09-1.09-1.09s-1.09.49-1.09,1.09v13.46c0,1,.81,1.82,1.82,1.82h11.64c1,0,1.82-.81,1.82-1.82v-13.46c0-.6-.49-1.09-1.09-1.09Z" />
             </g>
-            <path fill="currentColor" id="trash-can-lid" class="trash-can-lid" data-is-trash='true'
+            <path fill="currentColor" id="trash-can-lid" class="trash-can-lid"
                 d="m24.07,9.9h-3.27v-1.09c0-1.4-1.14-2.55-2.55-2.55h-4.36c-1.41,0-2.55,1.14-2.55,2.55v1.09h-3.27c-.6,0-1.09.49-1.09,1.09s.49,1.09,1.09,1.09h16c.6,0,1.09-.49,1.09-1.09s-.49-1.09-1.09-1.09Zm-5.46,0h-5.09v-1.09c0-.2.16-.36.36-.36h4.36c.2,0,.36.17.36.36v1.09Z" />
         </svg>
     </section>
-    <section id="weather-section" class="weather-section">
+    <section id="weather-section" class="weather-section" style="transition: top 150ms ease">
         <button id="weather-section-toggle" class="weather-section-toggle">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                 <path fill="currentColor"
