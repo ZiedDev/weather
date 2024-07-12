@@ -9,13 +9,13 @@ const closeSearchIcon = document.getElementById('close-search-icon')
 const editButton = document.getElementById('edit-button')
 const editMenu = document.getElementById('edit-menu')
 const editContextMenu = document.getElementById('edit-context-menu')
-const editList = document.getElementById('edit-context-menu-edit-list')
 const editMenuBackdrop = document.getElementById('edit-menu-backdrop')
 const editContextMenuCelsius = document.getElementById('edit-context-menu-celsius')
 const editContextMenuFahrenheit = document.getElementById('edit-context-menu-fahrenheit')
 const trashCan = document.getElementById('trash-can')
 const trashCanLid = document.getElementById('trash-can-lid')
 // Weather Section DOM
+const weatherSection = document.getElementById('weather-section')
 const weatherSectionToggle = document.getElementById('weather-section-toggle')
 const weatherSectionLocation = document.getElementById('weather-section-location')
 const weatherSectionTime = document.getElementById('weather-section-time')
@@ -183,10 +183,6 @@ closeSearchIcon.addEventListener('click', () => {
     searchOptions.innerHTML = ''
 })
 
-searchBox.addEventListener('focusin', () => {
-    searchOptions.classList.remove('hidden')
-})
-
 searchBox.addEventListener('input', async e => {
     let searchResults = await GetSearchData(searchBox.value)
     searchOptions.innerHTML = ''
@@ -195,9 +191,6 @@ searchBox.addEventListener('input', async e => {
         searchOption.textContent = `${searchResults[i].name}${searchResults[i].region ? ', ' + searchResults[i].region : ''}, ${searchResults[i].country}`
         searchOption.addEventListener('click', () => {
             OnSearchEnter(searchResults[i])
-        })
-        searchOption.addEventListener('click', e => {
-            searchOptions.classList.add('hidden')
         })
         searchOptions.appendChild(searchOption)
     }
@@ -276,8 +269,9 @@ trashCan.addEventListener('mouseleave', e => {
     isCanDelete = false
 })
 
+// Weather Section
 weatherSectionToggle.addEventListener('click', e => {
-    document.getElementById('weather-section').classList.remove('weather-section-opened')
+    weatherSection.classList.remove('weather-section-opened')
 })
 
 function ChangeWeatherSection(weatherData) {
@@ -285,3 +279,31 @@ function ChangeWeatherSection(weatherData) {
     weatherSectionTime.textContent = ChangeTo12HourFormat(weatherData.location.localtime.split(" ")[1])
     weatherSectionTemp.textContent = `${Number(weatherData.current.temp_c).toFixed(1)}°C`
 }
+
+let isDragging = false;
+let startingDrag = 0;
+
+weatherSection.addEventListener('touchstart', e => {
+    isDragging = true;
+    startingDrag = e.touches[0].clientY;
+    weatherSection.style.transition = ''
+})
+
+weatherSection.addEventListener('touchmove', e => {
+    if (!isDragging) return
+
+    let deltaDrag = e.touches[0].clientY - startingDrag
+
+    weatherSection.style.top = Math.max(0, deltaDrag) + 'px'
+})
+
+weatherSection.addEventListener('touchend', e => {
+    isDragging = false;
+    weatherSection.style.transition = 'top 150ms ease'
+
+    if (weatherSection.offsetTop > window.innerHeight / 2.7) {
+        weatherSection.classList.remove('weather-section-opened')
+    }
+
+    weatherSection.style.top = ''
+})
