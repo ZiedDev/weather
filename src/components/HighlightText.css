@@ -1,0 +1,18 @@
+.highlight {
+    display: inline-block;
+
+    background: linear-gradient(90deg,
+            #5f5fff 0%,
+            #8a5fff 20%,
+            #ff5fd2 40%,
+            #ff5f5f 60%,
+            #8a5fff 80%,
+            #5f5fff 100%);
+
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

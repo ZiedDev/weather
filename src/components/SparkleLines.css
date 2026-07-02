@@ -1,0 +1,21 @@
+*:has(> .sparkle-lines) {
+  position: relative;
+}
+
+.sparkle-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle-line-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.sparkle-line {
+  display: block;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+}
