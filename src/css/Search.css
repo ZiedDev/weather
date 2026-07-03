@@ -12,7 +12,6 @@ section {
     justify-content: center;
     align-items: center;
 
-
     .search-box {
         position: relative;
         height: fit-content;
@@ -42,7 +41,6 @@ section {
             font-size: 56px;
             letter-spacing: -1.68px;
             background-color: transparent;
-            backdrop-filter: blur(10px);
             border: var(--text-h) 3pt solid;
             border-radius: 24pt;
             padding: 0.5rem 0.5rem 0.5rem 4rem;
@@ -63,7 +61,6 @@ section {
     .search-results {
         display: flex;
         flex-direction: column;
-        backdrop-filter: blur(10px);
 
         margin: 0 1.5rem;
         gap: 1.5rem;

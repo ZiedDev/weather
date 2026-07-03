@@ -1,37 +1,58 @@
 import "./css/App.css";
+import HomeMenu from "./HomeMenu";
 import InitMenu from "./InitMenu";
 import Header from "./Header";
 import Footer from "./Footer";
 import Search from "./Search";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useSearch } from "./contexts/SearchContext";
+import { useWeather } from "./contexts/WeatherContext";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP)
 
 function App() {
-  const [searchMenu, setSearchMenu] = useState(false);
-  const [weatherData, setWeatherData] = useState(null);
+  const { weatherData, loading } = useWeather();
+  const { setSearchMenu } = useSearch();
+
+  const sceneRef = useRef(null);
+  const [view, setView] = useState("init"); // init | loading | home
 
   useGSAP(() => {
-    const searchShortCutKeyDown = (event) => {
-      if (event.code  == 'Insert') {
-        setSearchMenu(searchMenu => !searchMenu);
+    setView(loading ? "loading" : weatherData ? "home" : "init");
+  }, [loading, weatherData]);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      sceneRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }
+    );
+  }, [view]);
+
+  useGSAP(() => {
+    const handler = (event) => {
+      if (event.code === "Insert") {
+        setSearchMenu((prev) => !prev);
       }
     };
 
-    window.addEventListener('keydown', searchShortCutKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', searchShortCutKeyDown);
-    };
-  }, []);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [setSearchMenu]);
 
   return (
     <>
       <Header setSearchMenu={setSearchMenu} />
-      <InitMenu />
+
+      <div ref={sceneRef}>
+        {view === "loading" && <InitMenu mode="loading" />}
+        {view === "init" && <InitMenu mode="idle" />}
+        {view === "home" && <HomeMenu />}
+      </div>
+
       <Footer />
-      {searchMenu ? <Search weatherData={weatherData} setWeatherData={setWeatherData} /> : null}
+      <Search />
     </>
   );
 }
