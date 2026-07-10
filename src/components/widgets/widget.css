@@ -1,0 +1,446 @@
+.widget {
+    position: relative;
+
+    height: calc(100% - 2rem);
+    padding: 1rem;
+
+    background: linear-gradient(160deg,
+            rgba(76, 59, 142, 0.28),
+            rgba(34, 28, 67, 0.72));
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 24px;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    overflow: hidden;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        margin: 0;
+        color: var(--text-h);
+    }
+
+    .widget-title {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+
+        margin: -1rem -1rem 0;
+        padding: .5rem 1rem;
+
+        border-bottom: 1px solid rgba(255, 255, 255, .16);
+
+        svg {
+            width: clamp(18pt, 1.1vw + 10pt, 24pt);
+            height: clamp(18pt, 1.1vw + 10pt, 24pt);
+        }
+
+        h3 {
+            font-size: clamp(18pt, 1.1vw + 10pt, 24pt);
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .widget-title-right {
+            margin-left: auto;
+            color: rgba(255, 255, 255, .75);
+            font-size: clamp(16pt, .7vw + 10pt, 20pt);
+        }
+    }
+}
+
+/* Grid */
+
+.widget-large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.widget-medium {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.widget-small {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* Days Forecast */
+
+.day-cards {
+    height: calc(100% - 4rem);
+
+    display: flex;
+    flex-direction: column;
+    gap: clamp(.6rem, .9vw, 1rem);
+
+    padding: 1rem 0;
+
+    overflow-y: auto;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .day-card {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        padding: clamp(.85rem, 1vw, 1.25rem) clamp(1rem, 1.4vw, 1.5rem);
+
+        cursor: pointer;
+
+        background: rgba(88, 74, 156, .18);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 20px;
+
+        transition:
+            background .2s,
+            transform .2s,
+            border-color .2s,
+            box-shadow .2s;
+
+        &:hover {
+            background: rgba(88, 74, 156, .28);
+            transform: translateY(-2px);
+        }
+
+        &.selected {
+            background: linear-gradient(135deg,
+                    rgba(115, 97, 220, .45),
+                    rgba(88, 74, 156, .35));
+
+            border-color: rgba(255, 255, 255, .28);
+
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, .08),
+                0 10px 24px rgba(0, 0, 0, .25);
+
+            transform: translateY(-2px);
+        }
+
+        .day {
+            flex: 1;
+
+            text-align: left;
+            font-size: clamp(16pt, .9vw + 10pt, 22pt);
+            font-weight: 500;
+        }
+
+        h4 {
+            white-space: nowrap;
+
+            font-size: clamp(11pt, .45vw + 8pt, 14pt);
+            font-weight: 500;
+
+            color: rgba(255, 255, 255, .65);
+
+            &:nth-of-type(1) {
+                color: #8eb9ff;
+            }
+
+            &:nth-of-type(2) {
+                color: #ff7ea0;
+            }
+        }
+
+        h3:last-of-type {
+            width: clamp(46px, 4vw, 64px);
+
+            text-align: right;
+            font-size: clamp(16pt, .9vw + 10pt, 22pt);
+            font-weight: 500;
+        }
+
+        svg {
+            flex-shrink: 0;
+
+            width: clamp(26px, 2vw, 42px);
+            height: clamp(26px, 2vw, 42px);
+
+            margin-left: .5rem;
+        }
+    }
+}
+
+/* Hourly Forecast */
+
+.hour-cards {
+    display: flex;
+    gap: 1rem;
+
+    height: calc(100% - 4.75rem);
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 1rem 0;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    cursor: grab;
+    user-select: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.hour-card {
+    flex: 0 0 8rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem;
+
+    border-radius: 20px;
+
+    background: rgba(88, 74, 156, .18);
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    /* Don't let cards steal the mouse drag */
+    pointer-events: none;
+
+    h2,
+    h3 {
+        margin: 0;
+        pointer-events: none;
+    }
+
+    svg {
+        width: 50%;
+        height: 50%;
+        color: #8eb9ff;
+
+        pointer-events: none;
+    }
+}
+
+/* Feels Like */
+
+.feels-like {
+    height: calc(100% - 4rem);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+
+    text-align: center;
+
+    h1 {
+        margin: 0;
+        margin-top: 2rem;
+
+        font-size: clamp(14pt, 3vw, 48pt);
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    h3 {
+        text-align: left;
+        font-weight: 400;
+        margin: 0;
+
+        color: rgba(255, 255, 255, .72);
+
+        font-size: clamp(14pt, .7vw + 8pt, 18pt);
+        line-height: 1.2;
+
+        text-wrap: balance;
+    }
+}
+
+/* Precipitation */
+
+.precipitation {
+    height: calc(100% - 4rem);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 0.5rem;
+    padding: 0 .25rem;
+
+    .precipitation-value {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+
+        h1 {
+            margin: 0;
+            margin-top: 2rem;
+
+            font-size: clamp(14pt, 3vw, 48pt);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        span {
+            margin-left: .3rem;
+
+            color: var(--text-h);
+
+            font-size: clamp(22pt, 1vw + 10pt, 34pt);
+            font-weight: 700;
+        }
+    }
+
+
+    h3 {
+        text-align: left;
+        font-weight: 400;
+        margin: 0;
+
+        color: rgba(255, 255, 255, .72);
+
+        font-size: clamp(14pt, .7vw + 8pt, 18pt);
+        line-height: 1.2;
+
+        text-wrap: balance;
+    }
+}
+
+/* Vertical Scrollbar */
+
+.scrollbar {
+    position: absolute;
+
+    top: 4.5rem;
+    right: .35rem;
+    bottom: .75rem;
+
+    width: 4px;
+
+    background: rgba(255, 255, 255, .08);
+    border-radius: 999px;
+
+    backdrop-filter: blur(8px);
+
+    .scrollbar-thumb {
+        position: absolute;
+
+        top: 0;
+        left: -2px;
+
+        width: 8px;
+        height: 25%;
+
+        background: #fff;
+        border-radius: 999px;
+
+        cursor: grab;
+        touch-action: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+}
+
+/* Horizontal Scrollbar */
+
+.scrollbar-horizontal {
+    position: absolute;
+
+    top: auto;
+    left: 1rem;
+    right: 1rem;
+    bottom: .8rem;
+
+    width: auto;
+    height: 4px;
+
+    background: rgba(255, 255, 255, .08);
+    border-radius: 999px;
+
+    backdrop-filter: blur(8px);
+
+    .scrollbar-thumb {
+        position: absolute;
+
+        top: -2px;
+        left: 0;
+
+        width: 25%;
+        height: 8px;
+
+        background: #fff;
+        border-radius: 999px;
+
+        cursor: grab;
+        touch-action: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+}
+
+/* Restore native touch behaviour */
+
+@media (pointer: coarse) {
+
+    .hour-cards {
+        cursor: auto;
+        user-select: auto;
+    }
+
+    .hour-card,
+    .hour-card h2,
+    .hour-card h3,
+    .hour-card svg {
+        pointer-events: auto;
+    }
+}
+
+/* Responsive */
+
+@media (max-width:1024px) {
+
+    .widget-large,
+    .widget-medium,
+    .widget-small {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width:640px) {
+
+    .day-cards {
+
+        .day-card {
+
+            gap: .6rem;
+            padding: .8rem 1rem;
+
+            h3:last-of-type {
+                width: auto;
+            }
+
+            svg {
+                margin-left: 0;
+            }
+        }
+    }
+}

@@ -7,55 +7,97 @@ const MIN_LOADING_TIME = 500;
 
 export function WeatherProvider({ children }) {
   const [weatherData, setWeatherData] = useState(null);
-  const [loading, setLoading] = useState(false);
+
+  const [status, setStatus] = useState("idle");
+  // idle | locating | loading
 
   const [location, setLocation] = useState(() => {
     return localStorage.getItem("location");
   });
 
+  const selectLocation = (lat, lon) => {
+    const value = `${lat},${lon}`;
+    localStorage.setItem("location", value);
+    setLocation(value);
+  };
+
+  const useCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      console.warn("Geolocation is not supported.");
+      return;
+    }
+
+    setStatus("locating");
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        selectLocation(coords.latitude, coords.longitude);
+      },
+      (err) => {
+        console.warn("Geolocation failed:", err.message);
+        setStatus("idle");
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 300000,
+      },
+    );
+  };
+
+  const clearLocation = () => {
+    localStorage.removeItem("location");
+    setWeatherData(null);
+    setLocation(null);
+    setStatus("idle");
+  };
+
+  // Auto detect location on first launch
+  useEffect(() => {
+    if (!location) {
+      useCurrentLocation();
+    }
+  }, [location]);
+
+  // Fetch weather whenever location changes
   useEffect(() => {
     if (!location) return;
 
-    let isCancelled = false;
+    let cancelled = false;
 
-    async function loadWeather() {
-      setLoading(true);
+    const loadWeather = async () => {
+      setStatus("loading");
 
       const start = Date.now();
-
       const data = await GetWeatherData(location);
 
       const elapsed = Date.now() - start;
-      const remaining = Math.max(0, MIN_LOADING_TIME - elapsed);
+      const delay = Math.max(0, MIN_LOADING_TIME - elapsed);
 
       setTimeout(() => {
-        if (isCancelled) return;
+        if (cancelled) return;
 
         setWeatherData(data);
-        setLoading(false);
-      }, remaining);
-    }
+        setStatus("idle");
+      }, delay);
+    };
 
     loadWeather();
 
-    localStorage.setItem("location", location);
-
     return () => {
-      isCancelled = true;
+      cancelled = true;
     };
   }, [location]);
-
-  const selectLocation = (lat, lon) => {
-    setLocation(`${lat},${lon}`);
-  };
 
   return (
     <WeatherContext.Provider
       value={{
         weatherData,
-        loading,
+        loading: status === "loading",
+        status,
         location,
         selectLocation,
+        useCurrentLocation,
+        clearLocation,
       }}
     >
       {children}

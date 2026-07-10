@@ -17,11 +17,24 @@ header {
         background: transparent;
         border: none;
         cursor: pointer;
-        
+        transition: transform 250ms ease;
+
         svg {
             width: 100%;
             height: 100%;
-            color: var(--text-h);
+
+            path {
+                transition: color 250ms ease;
+                color: var(--text);
+            }
+        }
+
+        &:hover {
+            transform: translateY(-4px) scale(1.05);
+
+            svg path {
+                color: var(--text-h);
+            }
         }
     }
 }

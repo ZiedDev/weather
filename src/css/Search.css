@@ -61,6 +61,8 @@ section {
     .search-results {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
         margin: 0 1.5rem;
         gap: 1.5rem;
@@ -119,4 +121,18 @@ section {
             width: 22rem;
         }
     }
+}
+
+.current-location-btn {
+    margin-top: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+}
+
+.current-location-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
 }

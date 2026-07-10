@@ -1,7 +1,14 @@
 footer {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 4rem);
     margin: 1rem 2rem;
     height: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    h2, h3 {
+        margin: 0;
+    }
 }

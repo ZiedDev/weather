@@ -1,14 +1,14 @@
 import "./css/HomeMenu.css";
-import { Icon } from "@iconify/react";
 import { useWeather } from "./contexts/WeatherContext";
+import WeatherIcon from "./components/WeatherIcon";
 
-function HomeMenu() {
+function HomeMenu({ openDashboard }) {
   const { weatherData } = useWeather();
 
   console.log(weatherData);
 
   return (
-    <main>
+    <main className="home-menu">
       <div className="location">
         <h3>
           {weatherData.location.region}, {weatherData.location.country}
@@ -17,15 +17,16 @@ function HomeMenu() {
       </div>
       <div className="weather">
         <div className="current-weather">
-          <Icon icon="ph:moon-fill"></Icon>
+          <WeatherIcon code={weatherData.current.condition.code} isDay={true} />
           <h1>{weatherData.current.temp_c}°C</h1>
         </div>
         <div className="max-min-weather">
-          <h3>{weatherData.forecast.forecastday[0].day.mintemp_c}↓</h3>
-          <h3>{weatherData.forecast.forecastday[0].day.maxtemp_c}↑</h3>
+          <h3>{weatherData.forecast.forecastday[0].day.mintemp_c}°↓</h3>
+          <h3>{weatherData.forecast.forecastday[0].day.maxtemp_c}°↑</h3>
         </div>
       </div>
       <h2>Its {weatherData.current.condition.text} Today</h2>
+      <button onClick={openDashboard}>Show Details</button>
     </main>
   );
 }
